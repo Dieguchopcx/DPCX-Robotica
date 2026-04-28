@@ -7,18 +7,28 @@
     
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
     
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
     <style>
-        /* Diseño base moderno y animaciones */
+        /* Definición de variables globales (colores y fuentes) */
         :root {
-            --primary-color: #00ffcc;
-            --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            --cyan-neon: #00ffcc;
+            --blue-glow: #0088ff;
+            --bg-dark: #07070a;
+            --font-tech: 'Share Tech Mono', monospace;
+            --font-title: 'Orbitron', sans-serif;
         }
 
+        /* Diseño base con fondo animado sutil de partículas */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-gradient);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            font-family: var(--font-tech);
+            background: var(--bg-dark);
+            background-image: 
+                radial-gradient(var(--cyan-neon) 1px, transparent 1px),
+                radial-gradient(var(--blue-glow) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: 0 0, 25px 25px;
+            animation: particleBG 60s linear infinite;
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -27,95 +37,181 @@
             min-height: 100vh;
             margin: 0;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Animación del fondo */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Animación del fondo de partículas */
+        @keyframes particleBG {
+            from { background-position: 0 0, 25px 25px; }
+            to { background-position: 500px 1000px, 525px 1025px; }
         }
 
-        /* Efecto Glassmorphism (Vidrio) */
+        /* El panel central mejorado (Glassmorphism extremo + Glow Border) */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 20, 0.4);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
             border-radius: 20px;
             padding: 40px;
             text-align: center;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 
+                0 0 40px rgba(0, 0, 0, 0.8),
+                0 0 15px rgba(0, 255, 204, 0.1),
+                inset 0 0 10px rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 10;
         }
 
-        /* Estilos del Logo */
+        /* Estilos del Logo con Neon Glow */
         .logo-colegio {
             width: 120px;
             height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.5));
-            transition: transform 0.3s ease;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 15px var(--cyan-neon));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .logo-colegio:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(3deg);
         }
 
-        h1 { margin: 0; font-size: 1.8rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 2px;}
-        h2 { margin: 10px 0 30px; font-size: 1.2rem; font-weight: 300; color: #b3c6cb; }
+        /* Títulos Sci-Fi con Text-Glow */
+        h1 { 
+            margin: 0; 
+            font-size: 1.8rem; 
+            font-family: var(--font-title);
+            color: var(--cyan-neon); 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--cyan-neon);
+        }
+        h2 { 
+            margin: 10px 0 35px; 
+            font-size: 1.2rem; 
+            font-weight: 300; 
+            color: #b3c6cb;
+            letter-spacing: 1px;
+        }
         
+        /* Badge moderno */
         .badge {
-            background: rgba(0, 255, 204, 0.2);
-            color: var(--primary-color);
-            padding: 5px 15px;
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--cyan-neon);
+            padding: 6px 18px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
             display: inline-block;
-            margin-bottom: 20px;
-            border: 1px solid var(--primary-color);
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            text-shadow: 0 0 5px var(--cyan-neon);
         }
 
-        /* Botón de música flotante */
-        .music-btn {
+        /* --- SISTEMA DE AUDIO Y ECUALIZADOR (La novedad) --- */
+        
+        .music-controller-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--primary-color);
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            cursor: pointer;
             z-index: 100;
-            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
         }
 
-        .music-btn:hover {
-            background: var(--primary-color);
-            color: black;
-            box-shadow: 0 0 15px var(--primary-color);
+        .music-controller-container:hover {
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+            border-color: rgba(0, 255, 204, 0.5);
         }
+
+        /* Botón de música estilizado como icono */
+        .music-btn {
+            background: none;
+            border: none;
+            color: var(--cyan-neon);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.15);
+        }
+
+        /* Visualización del Ecualizador de Barras (CSS Puro) */
+        .equalizer {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            width: 30px;
+            height: 25px;
+        }
+
+        /* Barras individuales */
+        .bar {
+            width: 4px;
+            height: 5px; /* Altura inicial baja (pausado) */
+            background: var(--cyan-neon);
+            border-radius: 2px;
+            /* La animación está inicialmente pausada */
+            animation-name: danceBar;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+            animation-play-state: paused; 
+            transition: height 0.3s ease, background 0.3s ease;
+        }
+
+        /* Clase activada por JS cuando suena la música */
+        .playing .bar {
+            animation-play-state: running; 
+            background: var(--cyan-neon);
+            box-shadow: 0 0 10px var(--cyan-neon);
+        }
+
+        /* Definimos alturas máximas y tiempos aleatorios por barra */
+        .bar-1 { animation-duration: 0.8s; animation-delay: 0.1s; --max-h: 22px; }
+        .bar-2 { animation-duration: 1.0s; animation-delay: 0.3s; --max-h: 18px; }
+        .bar-3 { animation-duration: 0.7s; animation-delay: 0.0s; --max-h: 25px; }
+        .bar-4 { animation-duration: 1.2s; animation-delay: 0.5s; --max-h: 16px; }
+
+        /* Keyframes de la animación de "baile" de la barra */
+        @keyframes danceBar {
+            0%   { height: 5px; }
+            50%  { height: var(--max-h); }
+            100% { height: 5px; }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="glass-panel">
         
-        <img src="logo.png" alt="INSTITUTO TECNICO EN SISTEMAS SANTA ROSA DE LIMA" class="logo-colegio">
+        <img src="logo.png" alt="I.T.S. Santa Rosa de Lima" class="logo-colegio">
         
         <div class="badge">Grado 11° - Robótica STEAM</div>
         
         <h1>Instalador de Firmware</h1>
         <h2>Proyecto: Carro 4WD WiFi</h2>
 
-        <p style="font-size: 0.9rem; color: #a0aab0; margin-bottom: 30px;">
-            Conecta el ESP32, haz clic en el botón de abajo y selecciona el puerto serial de tu placa.
+        <p style="font-size: 0.9rem; color: #a0aab0; margin-bottom: 35px; line-height: 1.5; font-family: sans-serif;">
+            Iniciando terminal de flasheo...<br>
+            <span style="color:var(--cyan-neon);">[ESTADO: ESPERANDO CONEXIÓN_COM]</span><br>
+            Conecta la placa ESP32 por USB y presiona 'Connect'.
         </p>
 
         <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
@@ -125,23 +221,40 @@
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="music-btn" id="music-toggle" title="Reproducir/Pausar Música">
-        🎵 Activar Audio
-    </button>
+    <div class="music-controller-container" id="music-controller">
+        
+        <button class="music-btn" id="music-toggle" title="Reproducir/Pausar Música">
+            <span id="music-icon">▶️</span> </button>
+
+        <div class="equalizer">
+            <div class="bar bar-1"></div>
+            <div class="bar bar-2"></div>
+            <div class="bar bar-3"></div>
+            <div class="bar bar-4"></div>
+        </div>
+    </div>
 
     <script>
-        // Lógica para el botón de música
+        // Lógica mejorada para el botón de música y ecualizador
         const audio = document.getElementById('bg-audio');
         const btn = document.getElementById('music-toggle');
+        const icon = document.getElementById('music-icon');
+        const controller = document.getElementById('music-controller');
         let isPlaying = false;
 
         btn.addEventListener('click', () => {
             if (isPlaying) {
                 audio.pause();
-                btn.innerHTML = '🎵 Activar Audio';
+                icon.innerHTML = '▶️'; // Cambia a Play
+                controller.classList.remove('playing'); // Detiene ecualizador
             } else {
-                audio.play();
-                btn.innerHTML = '🔊 Pausar Audio';
+                audio.play().then(() => {
+                    icon.innerHTML = '⏸️'; // Cambia a Pausa
+                    controller.classList.add('playing'); // Inicia ecualizador
+                }).catch(e => {
+                    console.log("Error de autoplay bloqueado por navegador. Requiere clic de usuario.");
+                    alert("Haz clic en cualquier parte de la página primero para permitir el audio.");
+                });
             }
             isPlaying = !isPlaying;
         });
