@@ -1,0 +1,12 @@
+{
+  "name": "Carro 4WD WiFi",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "4wd_wifi_car.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
