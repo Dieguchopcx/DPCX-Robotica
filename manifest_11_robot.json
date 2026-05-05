@@ -1,0 +1,12 @@
+{
+  "name": "Robot Bombero / Carro 4WD (11°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "11_robot.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

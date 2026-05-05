@@ -1,0 +1,12 @@
+{
+  "name": "Compostaje Automatizado (6°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "6_compost.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

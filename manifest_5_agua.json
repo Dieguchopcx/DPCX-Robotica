@@ -1,0 +1,12 @@
+{
+  "name": "Dispensador de Agua (5°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "5_agua.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

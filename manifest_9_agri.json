@@ -1,0 +1,12 @@
+{
+  "name": "Agricultura Vertical (9°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "9_agri.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

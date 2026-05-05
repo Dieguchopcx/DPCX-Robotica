@@ -1,0 +1,12 @@
+{
+  "name": "Monitoreo Ambiental Escolar (8°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "8_amb.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

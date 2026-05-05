@@ -1,0 +1,12 @@
+{
+  "name": "Hidroponía IoT (10°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "10_hidro.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Iluminación Inteligente (7°)",
+  "version": "1.0",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "7_luz.ino.merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
